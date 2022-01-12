@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<p>Name: <input type="text" id="myText" value="Mickey"></p>
+
+<p>Here You can add as many exercised you would like</p>
+<div class="form-control">
+    <label for="role" id="label-exercise">Exercise:</label>
+
+    <!-- Dropdown options -->
+    <select name="role" id="role">
+        <option value="snatch">Snatch</option>
+        <option value="candj">Clean and Jerk</option>
+        <option value="backsquat">Back Squat </option>
+        <option value="other">Other</option>
+    </select>
+
+    <label for="role" id="label-weight">KG</label>
+    <input type="text"
+           id="weight"
+           placeholder="Enter KG" />
+
+    <label for="role" id="label-rep">Reps</label>
+    <input type="text"
+           id="rep"
+           placeholder="Enter Rep" />
+
+    <label for="role" id="label-date">date</label>
+    <input type="date" id="weight_date" name="weight_date">
+
+    <div class="two">
+        <button class="name" onclick="textBoxCreate()">Add Exercise</button>
+    </div>
+
+    <div id = "three">
+        <p id="myForm"></p>
+    </div>
+    <button type="submit" value="submit" onclick="return foo();"> Submit </button>
+</div>
+</body>
+</html>
