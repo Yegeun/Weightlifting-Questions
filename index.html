@@ -9,6 +9,9 @@
 
 <!-- Create Form -->
 <div class="form-control">
+    <div class="two">
+        <button class="name" onclick="textBoxCreate()">Add Exercise</button>
+    </div>
     <label for="role" id="label-exercise">Exercise:</label>
 
     <!-- Dropdown options -->
@@ -31,14 +34,11 @@
 
     <label for="role" id="label-date">date</label>
     <input type="date" id="weight_date" name="weight_date">
-
-    <div class="two">
-      <button class="name" onclick="textBoxCreate()">Add Exercise</button>
+    <div id = "three">
     </div>
 
 <!--    Added Exercises-->
-    <div id = "three">
-    </div>
+
     <button type="submit" value="submit" onclick="return foo();"> Submit </button>
 </div>
 
@@ -46,7 +46,7 @@
 <script>
   let date = new Date();
   let current_date = date.toISOString().substring(0,10);
-  document.getElementById('weight_date').value = current_date;
+  // document.getElementById('weight_date').value = current_date;
 
 
   //Array of Exercises
@@ -54,7 +54,6 @@
 
   function foo() {
     alert("Pressed");
-
     return true;
   }
 
@@ -103,7 +102,7 @@
           myParent.appendChild(br);
           count++;
       } else {
-          alert("Can't input more than 10");
+            alert("Can't have more than 10");
       }
   }
 </script>
