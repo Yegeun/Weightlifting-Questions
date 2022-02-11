@@ -13,12 +13,12 @@
     }
 </style>
 <body>
-
 <div id="navbar"><span>Red Stapler - SheetJS </span></div>
-<div id="wrapper">
-    <button onclick="excelbtn()">Create Excel</button>
-</div>
 <h1>Weekly Format Sheet</h1>
+<!--input name-->
+<label for="name">Name:</label>
+<input id="name">
+</input>
 
 <!-- Create Form -->
 <div class="form-control">
@@ -38,29 +38,57 @@
     let date = new Date();
     let current_date = date.toISOString().substring(0, 10);
     // document.getElementById('weight_date').value = current_date;
+    let name = "";
 
     //Array of Exercises
     const array = ["Snatch", "CandJ", "Back Squat", "Front Squat"];
 
+    function s2ab(s) {
+
+        let buf = new ArrayBuffer(s.length);
+        let view = new Uint8Array(buf);
+        for (let i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+        return buf;
+
+    }
     function submit_weights() {
         // alert("Pressed");
+        //Get name form input
+        validate_input()
+        name=document.getElementById("name")
         let exercise_num = 0;
         exercise_num= count ;
-        let string = "";
+        const dataArr = [];
         for (let i = 1; i < exercise_num; i++) {
             let exercise = document.getElementById("Exercise_"+i);
             let kg_exercise = document.getElementById("kg_"+i);
             let reps = document.getElementById("reps_"+i);
             let repstotal = document.getElementById("repstotal_"+i);
             let wdate = document.getElementById("weight_date_"+i);
-
-            let line = exercise.value+ "," + kg_exercise.value + "," + reps.value + "," + repstotal.value + ","+ wdate.value +","
-
-            string = line + string
+            dataArr.push([exercise.value,kg_exercise.value,reps.value,repstotal.value,wdate.value])
         }
+        let wb = XLSX.utils.book_new();
+        wb.Props = {
+            Title: "Weights",
+            Subject: "Test",
+            Author: "Red Stapler",
+            CreatedDate: new Date(2020,12,12)
+        };
+
+        wb.SheetNames.push("DataInput");//name of the sheetname
+        dataLen = dataArr.length
+        console.log(dataLen)
+        // let ws_data = [[dataArr[0][0], dataArr[0][1], dataArr[0][2], dataArr[0][3], dataArr[0][4]]];
+        let ws = XLSX.utils.aoa_to_sheet(dataArr);
+        wb.Sheets["DataInput"] = ws;
+        let wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+        saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), name.value+'.xlsx');
         //javascript to excel
-        console.log(string)
+
         return true;
+    }
+    function validate_input(){
+        const name = document.getElementById('name').value;
     }
 
     let count = 1; // Global Variable for Name
@@ -122,30 +150,6 @@
         } else {
             alert("Can't have more than 10");
         }
-    }
-    let wb = XLSX.utils.book_new();
-    wb.Props = {
-        Title: "SheetJS Tutorial",
-        Subject: "Test",
-        Author: "Red Stapler",
-        CreatedDate: new Date(2020,12,12)
-    };
-
-    wb.SheetNames.push("Test Sheet");
-    let ws_data = [['hello' , 'world']];
-    let ws = XLSX.utils.aoa_to_sheet(ws_data);
-    wb.Sheets["Test Sheet"] = ws;
-    let wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
-    function s2ab(s) {
-
-        let buf = new ArrayBuffer(s.length);
-        let view = new Uint8Array(buf);
-        for (let i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
-        return buf;
-
-    }
-    function excelbtn(){
-        saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'weightlifting.xlsx');
     }
 </script>
 </html>
