@@ -75,7 +75,7 @@
         };
 
         wb.SheetNames.push("DataInput");//name of the sheetname
-        dataLen = dataArr.length
+        let dataLen = dataArr.length;
         console.log(dataLen)
         // let ws_data = [[dataArr[0][0], dataArr[0][1], dataArr[0][2], dataArr[0][3], dataArr[0][4]]];
         let ws = XLSX.utils.aoa_to_sheet(dataArr);
@@ -132,7 +132,7 @@
             repstotal_input.id = "repstotal_" + count
             myParent.appendChild(repstotal_input);
             let repstotal_label = document.createElement("label");
-            repstotal_label.innerHTML = " Reps in Total ";
+            repstotal_label.innerHTML = " Sets x Reps ";
             myParent.appendChild(repstotal_label);
 
             //Enter Date
